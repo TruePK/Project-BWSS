@@ -16,34 +16,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @EnableWebMvc 
+@SessionAttributes({"employee"})
 public class HelloController{
-	
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
 	private EmployeeLogin employee;
 	private DataSource dataSource;
 	@Autowired
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
+		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
 	public void setEmployee(EmployeeLogin employeeTemp) {
 		this.employee = employeeTemp;
 	}
 	
+	
    @RequestMapping(value= "/hello", method = RequestMethod.GET)
-   public String printHello(@ModelAttribute("ContEmployee") EmployeeLogin employee,
-		   @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate,
+   public String printHello(@ModelAttribute("Employee") EmployeeLogin emp,
+		   @ModelAttribute("contJTemp") JdbcTemplate jdbcTemplate,
+		   RedirectAttributes redirectAttributes,
 		   ModelMap model) {
-	   setEmployee(employee);
-	   jdbcTemplate.setDataSource(dataSource);
-	   System.out.print(employee.getName() + " IS to be to Posted");
-	   String sqlUserName = "SELECT UserName FROM bwss.userlogin where UserName = '" 
-				+ employee.getName() + "';";
-      model.addAttribute("message", "Hello Spring MVC Framework!" + jdbcTemplate.queryForObject(sqlUserName, String.class));
+	  System.out.print("Name: " + emp.getName() + " ID: "+ emp.getId() + " and role: "+ emp.getRole());
+      model.addAttribute("message", "Is a emp: " +  emp.getName());
 
       return "hello";
    }

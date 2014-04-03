@@ -10,6 +10,8 @@ public class EmployeeLogin {
    private String name;
 	
    private Integer id;
+   
+   private String role;
 
    public void setPassword(String pass) {
       this.password = pass;
@@ -18,8 +20,8 @@ public class EmployeeLogin {
       return password;
    }
 
-   public void setName(String name) {
-      this.name = name;
+   public void setName(String i) {
+      this.name = i;
    }
    public String getName() {
       return name;
@@ -30,5 +32,11 @@ public class EmployeeLogin {
    }
    public Integer getId() {
       return id;
+   }
+   public void setRole(String i) {
+	      this.role = i;
+   }
+   public String getRole() {
+	      return role;
    }
 }

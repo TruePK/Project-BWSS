@@ -20,8 +20,8 @@ import com.tutorialspoint.bwssDAO;
 
 @Controller
 @EnableWebMvc 
-@SessionAttributes({"employee"})
-public class StudentController {
+@SessionAttributes({"employee","dataSource","jdbcTemplate"})
+public class EmpController {
 
 	
 	@Autowired
@@ -53,23 +53,44 @@ public class StudentController {
 	   
    }
    
-   @RequestMapping(value = "/addStudent", method = RequestMethod.POST)
-   public String addStudent(@ModelAttribute("SpringWeb")EmployeeLogin student,
+   @RequestMapping(value = "/addEmp", method = RequestMethod.POST)
+   public String addEmp(@ModelAttribute("SpringWeb")EmployeeLogin Emp,
 		   RedirectAttributes redirectAttributes,ModelMap model) {
-	   redirectAttributes.addFlashAttribute("ContEmployee", student);
-	   setEmployee(student);
+	   
+	   redirectAttributes.addFlashAttribute("contDB", dataSource);
+	   redirectAttributes.addFlashAttribute("contJTemp", jdbcTemplate);
+	   setEmployee(Emp);
+	  String sqlID = "SELECT EmployeeID FROM bwss.userlogin where UserName = '" 
+		+ Emp.getName() + "';";
 	String sqlUserName = "SELECT UserName FROM bwss.userlogin where UserName = '" 
-			+ student.getName() + "';";
+			+ Emp.getName() + "';";
 	String sqlPassword = "SELECT Password FROM bwss.userlogin where UserName = '" 
-			+ student.getName() + "';";
+			+ Emp.getName() + "';";
 	
+	String EmployeeID = jdbcTemplate.queryForObject(sqlID, String.class);
 	String userNameEntered = jdbcTemplate.queryForObject(sqlUserName, String.class);
 	String userPassDB = jdbcTemplate.queryForObject(sqlPassword, String.class);
-	   
-	  if( (student.getName().equals(userNameEntered)) == true && 
-			  (student.getPassword().equals(userPassDB)) == true ){
-				  return "redirect:hello";
+	String sqlRole = "SELECT roles FROM bwss.roles where EmployeeID = '" 
+					+ EmployeeID + "';";
+	
+	
+	
+	
+	  if( (Emp.getName().equals(userNameEntered)) == true && 
+			  (Emp.getPassword().equals(userPassDB)) == true ){
+			String EmployeeRole = jdbcTemplate.queryForObject(sqlRole, String.class);
+		  	Emp.setId((Integer.parseInt(EmployeeID)));
+			Emp.setName(userNameEntered);
+			
+			
+			
+		  if(EmployeeRole.equals("ADMIN")){
+			  Emp.setRole(EmployeeRole);
+			  redirectAttributes.addFlashAttribute("ContEmployee", Emp);
+				  return "redirect:menu";
+		  }
 	  }
+	  
       return "redirect:";
 	   
    
