@@ -6,7 +6,7 @@
 <body>
 
 <h2>Biltmore Weekly Scheduling System</h2>
-<form:form method="POST" action="/HelloWeb/addEmp">
+<form:form method="POST" action="/BWSS/addEmp">
    <table>
     <tr>
         <td><form:label path="name">Name</form:label></td>
@@ -17,7 +17,7 @@
         <td><form:input path="password" /></td>
     </tr>
     <tr>
-    <form:form method="GET" action="/HelloWeb/addEmp">
+    <form:form method="GET" action="/BWSS/addEmp">
         <td colspan="2">
             <input type="submit" value="Submit"/>
         </td>

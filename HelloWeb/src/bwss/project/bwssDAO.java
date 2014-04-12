@@ -1,4 +1,4 @@
-package com.tutorialspoint;
+package bwss.project;
 
 import javax.sql.DataSource;
 
@@ -28,7 +28,6 @@ public class bwssDAO {
 
 	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
-		testQuery();
 	}
 	public  void testQuery(){
 		

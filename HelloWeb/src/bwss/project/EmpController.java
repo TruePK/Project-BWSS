@@ -1,7 +1,11 @@
-package com.tutorialspoint;
+package bwss.project;
+
+import java.io.File;
+import java.io.IOException;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.tutorialspoint.bwssDAO;
+import bwss.project.bwssDAO;
 
 
 @Controller
@@ -58,15 +62,18 @@ public class EmpController {
 		   RedirectAttributes redirectAttributes,ModelMap model) {
 	   
 	   redirectAttributes.addFlashAttribute("contDB", dataSource);
-	   redirectAttributes.addFlashAttribute("contJTemp", jdbcTemplate);
+	   redirectAttributes.addFlashAttribute("contJTemplate", jdbcTemplate);
 	   setEmployee(Emp);
+	   //System.out.print(" Name: " + employee.getName() +
+				 // " ID: "+ employee.getId() + " and role: "+ employee.getRole());
 	  String sqlID = "SELECT EmployeeID FROM bwss.userlogin where UserName = '" 
 		+ Emp.getName() + "';";
 	String sqlUserName = "SELECT UserName FROM bwss.userlogin where UserName = '" 
 			+ Emp.getName() + "';";
 	String sqlPassword = "SELECT Password FROM bwss.userlogin where UserName = '" 
 			+ Emp.getName() + "';";
-	
+	try{
+	if(!Emp.getName().equals("") || !Emp.getPassword().equals("")){
 	String EmployeeID = jdbcTemplate.queryForObject(sqlID, String.class);
 	String userNameEntered = jdbcTemplate.queryForObject(sqlUserName, String.class);
 	String userPassDB = jdbcTemplate.queryForObject(sqlPassword, String.class);
@@ -83,15 +90,26 @@ public class EmpController {
 			Emp.setName(userNameEntered);
 			
 			
-			
 		  if(EmployeeRole.equals("ADMIN")){
 			  Emp.setRole(EmployeeRole);
 			  redirectAttributes.addFlashAttribute("ContEmployee", Emp);
 				  return "redirect:menu";
+		  }else if(EmployeeRole.equals("MOD")){
+			  Emp.setRole(EmployeeRole);
+			  redirectAttributes.addFlashAttribute("ContEmployee", Emp);
+				  return "redirect:menu";
+		  }else if(EmployeeRole.equals("USER")){
+			  Emp.setRole(EmployeeRole);
+			  redirectAttributes.addFlashAttribute("ContEmployee", Emp);
+				  return "redirect:menu";
 		  }
+		  
 	  }
-	  
-      return "redirect:";
+	}
+	}catch(Exception ex){
+		return "redirect:/";
+	}
+      return "redirect:/";
 	   
    
 }
