@@ -8,7 +8,8 @@
    <table>
    <tr><form action="/BWSS/menuCurr">
    		<td><input type="submit" value="Current"/></td></form></tr>
-   <tr><td><input type="submit" value="Create"/></td></tr>
+   		<form action="/BWSS/menuCre">
+   <tr><td><input type="submit" value="Create"/></td></form></tr>
       </table>
    </form:form>
 </body>

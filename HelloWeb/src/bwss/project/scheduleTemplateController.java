@@ -95,7 +95,6 @@ public class scheduleTemplateController {
 			for(int k = 1; k <=7; k++){
 				List<String> tempList = null;
 				tempList.set(k-1, rows.get(k).toString());
-				Employees.get(i).setAvalabilty(tempList);
 			}
 		
 		}

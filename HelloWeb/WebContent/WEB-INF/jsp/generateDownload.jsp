@@ -7,7 +7,7 @@
 <title>Download Generation</title>
 </head>
 <body>
-	<form action="/BWSS/generationScheduleView"></form>
+	<form action="/BWSS/TestConnection"></form>
 	<table>
    <tr><form action="/BWSS/downloadSchedule">
    		<td><input type="submit" value="SchedulePDF"/></td></form></tr>

@@ -4,7 +4,7 @@
     <title>BWSS</title>
 </head>
 <body>
-
+<DIV ALIGN=CENTER>
 <h2>Biltmore Weekly Scheduling System</h2>
 <form:form method="POST" action="/BWSS/addEmp">
    <table>
@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td><form:label path="password">Password</form:label></td>
-        <td><form:input path="password" /></td>
+        <td><form:input path="password"  type='password'/></td>
     </tr>
     <tr>
     <form:form method="GET" action="/BWSS/addEmp">
@@ -25,5 +25,6 @@
     </tr>
 </table>  
 </form:form>
+</DIV>
 </body>
 </html>

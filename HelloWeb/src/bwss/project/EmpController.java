@@ -64,8 +64,8 @@ public class EmpController {
 	   redirectAttributes.addFlashAttribute("contDB", dataSource);
 	   redirectAttributes.addFlashAttribute("contJTemplate", jdbcTemplate);
 	   setEmployee(Emp);
-	   //System.out.print(" Name: " + employee.getName() +
-				 // " ID: "+ employee.getId() + " and role: "+ employee.getRole());
+	   
+		
 	  String sqlID = "SELECT EmployeeID FROM bwss.userlogin where UserName = '" 
 		+ Emp.getName() + "';";
 	String sqlUserName = "SELECT UserName FROM bwss.userlogin where UserName = '" 

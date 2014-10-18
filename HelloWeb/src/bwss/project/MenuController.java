@@ -22,17 +22,15 @@ public class MenuController {
 	private JdbcTemplate jdbcTemplate;
 	public DataSource datasource;
 	
-	public void setDataSource(DataSource dataSource) {
-		this.datasource = dataSource;
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-		}
+	
 	 @RequestMapping(value= "/menu", method = RequestMethod.GET)
 	 public String Employee(@ModelAttribute("ContEmployee") EmployeeLogin emp,
 			 @ModelAttribute("ContJTemplate") JdbcTemplate jtemplate, 
 			 ModelMap model) {
 		 try{
-			 setEmp(emp);
-			 setJTemplate(jtemplate);
+			 
+				setEmp(emp);
+			 
 			 if(emp.getRole().equals("ADMIN")){
 			 model.addAttribute("name", "Hello " +  employee.getName());
 		      return "menuAdmin";
@@ -55,9 +53,7 @@ public class MenuController {
 	public void setEmp(EmployeeLogin emp){
 		employee = emp;
 	}
-	public void setJTemplate(JdbcTemplate template){
-		jdbcTemplate = template;
-	}
+	
 	
 	   @RequestMapping(value= "/menuCurr")
 	   public String Curr(RedirectAttributes redirectAttributes,
@@ -71,9 +67,11 @@ public class MenuController {
 	   @RequestMapping(value= "/menuCre")
 	   public String Cre(RedirectAttributes redirectAttributes,
 			   ModelMap model) {
-		  
+		   
+		   
 	      redirectAttributes.addFlashAttribute("Employee", employee);
-	      redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
+	      redirectAttributes.addFlashAttribute("jdbcTemplate", this.jdbcTemplate);
+	      redirectAttributes.addFlashAttribute("datasource", datasource);
 	      return "redirect:menuSManage";
 	   }
 	   @RequestMapping(value= "/menuMan")

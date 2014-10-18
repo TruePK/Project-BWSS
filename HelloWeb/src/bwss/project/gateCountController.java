@@ -1,6 +1,12 @@
 package bwss.project;
 
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,16 +26,27 @@ public class gateCountController {
 	   }
 	@RequestMapping(value= "/applyGateCounts")
 	public String sendToGenration(RedirectAttributes redirectAttributes,
-			 @RequestParam("day1Count")int day1,
-			 @RequestParam("day2Count")int day2,
-			 @RequestParam("day3Count")int day3,
-			 @RequestParam("day4Count")int day4,
-			 @RequestParam("day5Count")int day5,
-			 @RequestParam("day6Count")int day6,
-			 @RequestParam("day7Count")int day7) {
-		int[] gateCount = {day1,day2,day3,day4,day5,day6,day7};
+			@ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate,
+			 @RequestParam("THURCount")int THUR,
+			 @RequestParam("FRICount")int FRI,
+			 @RequestParam("SATCount")int SAT,
+			 @RequestParam("SUNCount")int SUN,
+			 @RequestParam("MONCount")int MON,
+			 @RequestParam("TUESCount")int TUES,
+			 @RequestParam("WEDCount")int WED) {
+		Map<String,Integer> gateCount = new LinkedHashMap<String,Integer>();
 		
-		System.out.print(gateCount[0]);
+		gateCount.put("THUR", THUR);
+		gateCount.put("FRI", FRI);
+		gateCount.put("SAT", SAT);
+		gateCount.put("SUN", SUN);
+		gateCount.put("MON", MON);
+		gateCount.put("TUES", TUES);
+		gateCount.put("WED", WED);
+		
+		redirectAttributes.addFlashAttribute("gateCount", gateCount);
+		redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
+
 		return"redirect:generateDownloadView";
 		
 	}

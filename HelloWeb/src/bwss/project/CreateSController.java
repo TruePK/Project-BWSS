@@ -1,5 +1,7 @@
 package bwss.project;
 
+import javax.sql.DataSource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,16 +20,15 @@ public class CreateSController {
 	private JdbcTemplate jdbcTemplate;
 	 @RequestMapping(value= "/menuSManage", method = RequestMethod.GET)
 	 public String Employee(@ModelAttribute("Employee") EmployeeLogin emp,
-			 @ModelAttribute("jdbcTemplate") JdbcTemplate jtemplate, 
+			 @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate, 
 			 ModelMap model) {
 		 try {
-			setEmp(emp);
-		 setJTemplate(jtemplate);
-		//System.out.print(" Name: " + employee.getName() +
-		// " ID: "+ employee.getId() + " and role: "+ employee.getRole());
+			
+		 
 		 return "scheduleMenu";
 		} catch (Exception e) {
-			return"redirect:emploee";
+
+			return"redirect:employee";
 		}
 		 
 	   }
@@ -35,8 +36,9 @@ public class CreateSController {
 	public void setEmp(EmployeeLogin emp){
 		employee = emp;
 	}
-	public void setJTemplate(JdbcTemplate template){
-		jdbcTemplate = template;
+	public void setJTemplate(JdbcTemplate Template){
+		
+		jdbcTemplate =  Template;
 	}
 	
 	   @RequestMapping(value= "/menuSView")
@@ -67,10 +69,11 @@ public class CreateSController {
 	}
 	   @RequestMapping(value= "/sendToCreate")
 	   public String sendToCreate(RedirectAttributes redirectAttributes,
+			   @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate,
 			   ModelMap model) {
-		
+		   
 		redirectAttributes.addFlashAttribute("Employee", employee);
-	      redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
+		redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
 		return "redirect:gateCountView";
 	}
 	   

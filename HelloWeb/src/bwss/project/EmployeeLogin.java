@@ -20,14 +20,7 @@ private String password;
    private String home;
    private String enabled;
    private String PhoneNumber;
-   public List<String> avalabilty;
 
-   public List<String> getAvalabilty() {
-	      return avalabilty;
-	   }
-   public void setAvalabilty(List<String> tempList) {
-	      this.avalabilty = tempList;
-	   }
    
    public String getPhone() {
 	      return PhoneNumber;

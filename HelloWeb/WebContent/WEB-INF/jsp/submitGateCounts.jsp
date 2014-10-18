@@ -10,13 +10,13 @@
 	<table><td>
 	<form action="/BWSS/gateCountView"></form>
 			<form action="/BWSS/applyGateCounts">
-	<tr><td><label>Day 1:</label> <input type='text' id ="day1Count" name='day1Count' /></td></tr>
-	<tr><td><label>Day 2:</label> <input type='text' id ="day2Count" name='day2Count' /></td></tr>
-	<tr><td><label>Day 3:</label> <input type='text' id ="day3Count" name='day3Count' /></td></tr>
-	<tr><td><label>Day 4:</label> <input type='text' id ="day4Count" name='day4Count' /></td></tr>
-	<tr><td><label>Day 5:</label> <input type='text' id ="day5Count" name='day5Count' /></td></tr>
-	<tr><td><label>Day 6:</label> <input type='text' id ="day6Count" name='day6Count' /></td></tr>
-	<tr><td><label>Day 7:</label> <input type='text' id ="day7Count" name='day7Count' /></td></tr>
+	<tr><td><label>Thursday:</label> <input type='text' id ="THURCount" name='THURCount' /></td></tr>
+	<tr><td><label>Friday:</label> <input type='text' id ="FRICount" name='FRICount' /></td></tr>
+	<tr><td><label>Saturday:</label> <input type='text' id ="SATCount" name='SATCount' /></td></tr>
+	<tr><td><label>Sunday:</label> <input type='text' id ="SUNCount" name='SUNCount' /></td></tr>
+	<tr><td><label>Monday:</label> <input type='text' id ="MONCount" name='MONCount' /></td></tr>
+	<tr><td><label>Tuesday:</label> <input type='text' id ="TUESCount" name='TUESCount' /></td></tr>
+	<tr><td><label>Wednesday:</label> <input type='text' id ="WEDCount" name='WEDCount' /></td></tr>
 			
 	<tr><td><input type="submit" value="Submit Gate Counts"/></td></tr>
 	</form>
