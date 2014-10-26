@@ -18,9 +18,9 @@
    </bean>
  	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    	<property name="url" value="jdbc:mysql://97.82.194.234:3306/BWSS" />
+    	<property name="url" value="jdbc:mysql://66.191.216.6:3306/BWSS" />
     	<property name="username" value="TheTruePK" />
-    	<property name="password" value="Redman11" />
+    	<property name="password" value="redman" />
 	</bean>
 	<bean id="bwssDAO" class="bwss.project.bwssDAO">
 		<property name="dataSource" ref="dataSource">
