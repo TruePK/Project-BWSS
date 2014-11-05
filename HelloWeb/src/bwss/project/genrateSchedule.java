@@ -43,23 +43,27 @@ public class genrateSchedule {
 			 @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate,
 			 ModelMap model) {
 		this.gateCount = gateCount;
-		
 		setDataSource(jdbcTemplate.getDataSource());
-		findEmpAv("CYM");
+		
+		//Returns a list of the areas
+		String sqlForAreas = "select home from employee group by home;";	
+		List<String> areasInList = (List<String>) jdbcTemplate.queryForList(sqlForAreas, String.class);
+		
+		//Returns a list of employees
+		List<Integer> listOfEmployeesByArea = new LinkedList<Integer>();
+		listOfEmployeesByArea = findEmpByArea(areasInList.get(0));
 		return "generateDownload";
 	   }
 	
 	@RequestMapping(value= "/TestConnection")
-	public void findEmpAv(String homeLoc){
+	public List findEmpByArea(String homeLoc){
 		 
-		String sql = "Select EmployeeID from employee where employee.home = \""+ homeLoc+"\";";
-		System.out.print("////////////////'''''" + jdbcTemplate.queryForList(sql).size());
-		
-	    LinkedList<Integer> empIDByHome = new LinkedList<Integer>();
-		Map<Integer,String[]> EmployeeByAreaAval = null;
-		
-	 
-		
+		String sql = "Select EmployeeID from employee where employee.home = \""
+				+ homeLoc+"\" and enabled=\"Y\";";		
+	    List<Integer> empIDByHome = new LinkedList<Integer>();		
+	    
+	    empIDByHome = jdbcTemplate.queryForList(sql, Integer.class);
+		return empIDByHome;
 	}
 	public void setupVarsForGenration(){
 		

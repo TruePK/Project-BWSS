@@ -39,9 +39,22 @@ public class removeController {
 	 @RequestMapping(value="/removeID")
 	 public String remove(@RequestParam("employeeID")int ID,
 			 RedirectAttributes redirectAttributes){
-		String sql = "DELETE FROM bwss.employee WHERE EmployeeID =" +
+		String sql1 = "DELETE FROM avalabilty WHERE EmployeeID =" +
 				ID+";";
-		jdbctemplate.execute(sql);
+		String sql2 = "DELETE FROM contactinfo WHERE EmployeeID =" +
+				ID+";";
+		String sql3 = "DELETE FROM roles WHERE EmployeeID =" +
+				ID+";";
+		String sql4 = "DELETE FROM userlogin WHERE EmployeeID =" +
+				ID+";";
+		String sql5 = "DELETE FROM employee WHERE EmployeeID =" +
+				ID+";";
+		
+		jdbctemplate.execute(sql1);
+		jdbctemplate.execute(sql2);
+		jdbctemplate.execute(sql3);
+		jdbctemplate.execute(sql4);
+		jdbctemplate.execute(sql5);
 		redirectAttributes.addFlashAttribute("ContEmployee", employee);
 	      redirectAttributes.addFlashAttribute("ContJTemplate", jdbctemplate);
 		 return "redirect:menu";
