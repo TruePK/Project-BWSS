@@ -84,7 +84,4 @@ public class HelloController{
       model.addAttribute("message", "Welcome: " +  emp.getName() + " this is the current schedule.");
       return "hello";
    }
-   
-   
-
 }

@@ -12,11 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @EnableWebMvc
+@SessionAttributes({"employee","dataSource","jdbcTemplate"})
 public class gateCountController {
 	@RequestMapping(value= "/gateCountView")
 	 public String addView(@ModelAttribute("Employee") EmployeeLogin emp,
@@ -47,8 +49,6 @@ public class gateCountController {
 		redirectAttributes.addFlashAttribute("gateCount", gateCount);
 		redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
 
-		return"redirect:generateDownloadView";
-		
+		return"redirect:generateDownloadView";	
 	}
-
 }

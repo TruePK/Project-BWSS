@@ -70,7 +70,7 @@ public class MenuController {
 		   
 		   
 	      redirectAttributes.addFlashAttribute("Employee", employee);
-	      redirectAttributes.addFlashAttribute("jdbcTemplate", this.jdbcTemplate);
+	      redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
 	      redirectAttributes.addFlashAttribute("datasource", datasource);
 	      return "redirect:menuSManage";
 	   }

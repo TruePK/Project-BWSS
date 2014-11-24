@@ -110,7 +110,5 @@ public class EmpController {
 		return "redirect:/";
 	}
       return "redirect:/";
-	   
-   
 }
 }

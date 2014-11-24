@@ -174,7 +174,5 @@ public class scheduleTemplateController {
 	      response.setContentType("application/force-download");
           response.setHeader("Content-Disposition", "attachment; filename= "+"C:/schedule/output.xls");
           IOUtils.copy(inputStream, response.getOutputStream());
-	
 	}
-	
 }

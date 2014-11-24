@@ -57,8 +57,6 @@ public class removeController {
 		jdbctemplate.execute(sql5);
 		redirectAttributes.addFlashAttribute("ContEmployee", employee);
 	      redirectAttributes.addFlashAttribute("ContJTemplate", jdbctemplate);
-		 return "redirect:menu";
-		 
+		 return "redirect:menu"; 
 	 }
-	
 }
