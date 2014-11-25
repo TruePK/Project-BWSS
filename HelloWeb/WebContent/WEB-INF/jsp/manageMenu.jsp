@@ -6,6 +6,7 @@
 <title>Employee Management</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 <form:form method="GET" action="/BWSS/menuEManage"> 
        <h2>${name}</h2> 
    	<table>
@@ -19,5 +20,6 @@
    		<tr><td><input type="submit" value="Remove"/></td></form></tr>
     </table>
 </form:form>
+</DIV>
 </body>
 </html>

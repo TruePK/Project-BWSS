@@ -19,9 +19,14 @@ public class CreateSController {
 	private EmployeeLogin employee;
 	private JdbcTemplate jdbcTemplate;
 	 @RequestMapping(value= "/menuSManage", method = RequestMethod.GET)
-	 public String Employee(@ModelAttribute("Employee") EmployeeLogin emp,
-			 @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate, 
-			 ModelMap model) {
+	 public String Employee(ModelMap model) {
+		 EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+		 JdbcTemplate jdbcTemplate = (JdbcTemplate) model.get("jdbcTemplate");
+		 setJTemplate(jdbcTemplate);
+		 setEmp(emp);
+		 if(emp == null){
+			return "redirect:/";
+		 }
 		 try {
 			
 		 
@@ -52,6 +57,7 @@ public class CreateSController {
 	   }
 	   @RequestMapping(value= "/menuUploadView")
 	   public String uploadRedirect(RedirectAttributes redirectAttributes,
+			   @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate,
 			   ModelMap model) {
 		  
 	      
@@ -61,6 +67,7 @@ public class CreateSController {
 	   }
 	   @RequestMapping(value= "/sendToTemplateView")
 	   public String sendToTemplate(RedirectAttributes redirectAttributes,
+			   @ModelAttribute("jdbcTemplate") JdbcTemplate jdbcTemplate,
 			   ModelMap model) {
 		
 		redirectAttributes.addFlashAttribute("Employee", employee);

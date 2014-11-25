@@ -34,11 +34,17 @@ public class MenuEController {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	 DataSource datasource;
+	 
+	 
 
 	 @RequestMapping(value= "/menuEManage", method = RequestMethod.GET)
-	 public String Employee(@ModelAttribute("Employee") EmployeeLogin emp,
-			 @ModelAttribute("jdbcTemplate") JdbcTemplate jtemplate,
+	 public String Employee(
 			 ModelMap model) {
+		 EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+		 JdbcTemplate jtemplate = (JdbcTemplate) model.get("jdbcTemplate");
+		 if(emp == null){
+			return "redirect:/";
+		 }
 		 try{		
 			 setEmp(emp);
 		 return "manageMenu";
@@ -99,8 +105,11 @@ public class MenuEController {
 	}
 	
 	   @RequestMapping(value= "/menuEView",method = RequestMethod.POST)
-	   public @ResponseBody String printHello(RedirectAttributes redirectAttributes,
+	   public @ResponseBody String printHello(
 			   ModelMap model) {
+		  
+		   
+		   
 		   String Output;
 		   
 			   String sqlQuery = "SELECT employee.*,contactinfo.PhoneNumber FROM bwss.contactinfo,"
@@ -123,8 +132,8 @@ public class MenuEController {
 		   }
 		   
 			
-	      redirectAttributes.addFlashAttribute("Employee", employee);
-	      redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
+	      //redirectAttributes.addFlashAttribute("Employee", employee);
+	      //redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
 	      return Output;
 	   } 
 }

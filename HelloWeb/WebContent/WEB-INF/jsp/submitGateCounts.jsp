@@ -7,6 +7,7 @@
 <title>Submit Daily Gate Counts</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 	<table><td>
 	<form action="/BWSS/gateCountView"></form>
 			<form action="/BWSS/applyGateCounts">
@@ -22,5 +23,6 @@
 	</form>
 	<td>
 	</table>
+	</DIV>
 </body>
 </html>

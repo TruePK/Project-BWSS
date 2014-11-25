@@ -8,6 +8,7 @@
 <title>Upload a New Work Week Schedule</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 <table>
 	<tr>
 		<td>
@@ -16,6 +17,7 @@
    		<input type="submit" value="Submit"/></form></td></tr>
    		
    		</table>
+   		</DIV>
 </body>
 </form:form>
 </html>

@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,6 +37,7 @@ import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 @Controller
 @EnableWebMvc
+@SessionAttributes({"employee","dataSource","jdbcTemplate"})
 public class scheduleTemplateController {
 	private EmployeeLogin employee;
 	@Autowired
@@ -56,7 +58,11 @@ public class scheduleTemplateController {
 
 	@RequestMapping(value= "/templateView")
 	   public String setup(
-			   RedirectAttributes redirectAttributes){
+			   RedirectAttributes redirectAttributes,ModelMap model){
+		EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+		 if(emp == null){
+			return "redirect:/";
+		 }
 
 		return "manualTemplate";
 	   }
@@ -64,11 +70,11 @@ public class scheduleTemplateController {
 		 
 		String sql = "SELECT employee.* " +
 				"FROM  bwss.employee " +
-				"where bwss.employee.home='" + homeLoc + "';";
+				"where bwss.employee.home=?;";
 	 
 		List<EmployeeLogin> Employees = new ArrayList<EmployeeLogin>();
 	 
-		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+		List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, new Object[]{homeLoc});
 		for (Map row : rows) {
 			EmployeeLogin employee = new EmployeeLogin();
 			employee.setId((Integer)(row.get("EmployeeID")));
@@ -83,24 +89,7 @@ public class scheduleTemplateController {
 		return Employees;
 	}
 	
-	public List<EmployeeLogin>  findEmpAvalabilty(List<EmployeeLogin> Employees){
-		
-		int sizeOfList = Employees.size();
-		
-		for(int i = 0; i <= sizeOfList; i++){
-			String sql = "select bwss.avalabilty.* from bwss.avalabilty where EmployeeID ="+
-					Employees.get(0).getId() +";";
-			
-			List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
-			for(int k = 1; k <=7; k++){
-				List<String> tempList = null;
-				tempList.set(k-1, rows.get(k).toString());
-			}
-		
-		}
-		return Employees;
-		
-	}
+	
 	@RequestMapping(value="/getXLS")
 	public void createWorkbook(HttpSession session,HttpServletResponse response) throws IOException, Exception, WriteException{
 		List<EmployeeLogin> employeesBake = findAllOfLoc("BAKE");

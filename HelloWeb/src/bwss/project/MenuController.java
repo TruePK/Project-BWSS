@@ -1,10 +1,12 @@
 package bwss.project;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +26,19 @@ public class MenuController {
 	
 	
 	 @RequestMapping(value= "/menu", method = RequestMethod.GET)
-	 public String Employee(@ModelAttribute("ContEmployee") EmployeeLogin emp,
-			 @ModelAttribute("ContJTemplate") JdbcTemplate jtemplate, 
+	 public String Employee(
+			 HttpServletRequest session,@ModelAttribute("ContJTemplate") JdbcTemplate jtemplate, 
 			 ModelMap model) {
 		 try{
 			 
+			 //@ModelAttribute("employee") EmployeeLogin emp
+			 EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+			 if(emp != null){
 				setEmp(emp);
+			 }else{
+				 return "redirect:/";
+			 }
+			 //EmployeeLogin emp = (EmployeeLogin)session.getAttribute("employee");
 			 
 			 if(emp.getRole().equals("ADMIN")){
 			 model.addAttribute("name", "Hello " +  employee.getName());
@@ -78,8 +87,8 @@ public class MenuController {
 	   public String oMan(RedirectAttributes redirectAttributes,
 			   ModelMap model) {
 		  
-	      redirectAttributes.addFlashAttribute("Employee", employee);
-	      redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
+	      //redirectAttributes.addFlashAttribute("Employee", employee);
+	     // redirectAttributes.addFlashAttribute("jdbcTemplate", jdbcTemplate);
 
 	      return "redirect:menuEManage";
 	   }

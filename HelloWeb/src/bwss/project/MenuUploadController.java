@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileDeleteStrategy;
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @EnableWebMvc
+@SessionAttributes({"employee","dataSource","jdbcTemplate"})
 public class MenuUploadController {
 	private MultipartFile file;
 	private String stringName ;
@@ -46,11 +48,13 @@ private JdbcTemplate jdbcTemplate;
 		jdbcTemplate = temp;
 	}
 	@RequestMapping(value= "/uploadView", method = RequestMethod.GET)
-	public String Start(@ModelAttribute("Employee") EmployeeLogin emp,
-			@ModelAttribute("jdbcTemplate") JdbcTemplate tempjdbc,
+	public String Start(
 			ModelMap model) {
+		EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+		 if(emp == null){
+			return "redirect:/";
+		 }
 		 setEmp(emp);
-		 setjdbc(tempjdbc);
 	      return "uploadMenu";
 	   }
 	@RequestMapping(value= "/upload", method = RequestMethod.POST )

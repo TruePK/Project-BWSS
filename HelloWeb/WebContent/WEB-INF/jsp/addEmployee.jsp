@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Add Employee</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 	<table>
 		<td>
 			<form action="/BWSS/addEmployeeView"></form>
@@ -39,5 +40,6 @@
 				</form>
 		</td>
 	</table>
+	</DIV>
 </body>
 </html>

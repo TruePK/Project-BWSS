@@ -7,9 +7,10 @@
 <title>Remove a Employee</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 <form action="/BWSS/menuEDeleteView"></form>
 	<table>
-	<tr><td>!WARNING! verify the ID before submiting!</td></tr>
+	<tr><td>!WARNING! verify the ID before submitting!</td></tr>
     <tr>
      <td>
     	<form action="/BWSS/removeID">
@@ -19,5 +20,6 @@
      </td>
     </tr>
     </table>
+    </DIV>
 </body>
 </html>

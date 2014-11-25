@@ -7,6 +7,7 @@
 <title>Current Schedule</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 	<form:form method="GET" action="/BWSS/current"> 
   		<h2>${name}</h2> 
    		<table>
@@ -16,5 +17,6 @@
    			<td><input type="submit" value="UploadPDF"/></td></form></tr>
    		</table>
 	</form:form>
+	</DIV>
 </body>
 </html>

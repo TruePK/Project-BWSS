@@ -3,6 +3,7 @@
 <title>Menu</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
       <form:form method="GET" action="/BWSS/menu"> 
        <h2>${name}</h2> 
    <table>
@@ -16,5 +17,6 @@
    		<td><input type="submit" value="Manage"/></td></form></tr>
       </table>
    </form:form>
+   </DIV>
 </body>
 </html>

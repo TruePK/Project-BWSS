@@ -6,6 +6,7 @@
 <title>Employee Management</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 <form:form method="GET" action="/BWSS/menuSManage"> 
        <h2>${name}</h2> 
    <table>
@@ -17,5 +18,6 @@
    		<td><input type="submit" value="Upload"/></td></form></tr>
       </table>
    </form:form>
+   </DIV>
 </body>
 </html>

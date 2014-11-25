@@ -21,8 +21,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @SessionAttributes({"employee","dataSource","jdbcTemplate"})
 public class gateCountController {
 	@RequestMapping(value= "/gateCountView")
-	 public String addView(@ModelAttribute("Employee") EmployeeLogin emp,
+	 public String addView(
 			 ModelMap model) {
+		EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+		 if(emp == null){
+			return "redirect:/";
+		 }
 		
 		return "submitGateCounts";
 	   }

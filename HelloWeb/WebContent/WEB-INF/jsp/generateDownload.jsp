@@ -7,11 +7,12 @@
 <title>Download Generation</title>
 </head>
 <body>
+<DIV ALIGN=CENTER>
 	<form action="/BWSS/TestConnection"></form>
 	<table>
    <tr><form action="/BWSS/downloadSchedule">
    		<td><input type="submit" value="SchedulePDF"/></td></form></tr>
       </table>
-
+</DIV>
 </body>
 </html>

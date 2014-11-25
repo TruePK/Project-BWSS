@@ -39,7 +39,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @EnableWebMvc 
-@SessionAttributes({"employee"})
+@SessionAttributes({"employee","dataSource","jdbcTemplate"})
 public class HelloController{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -77,11 +77,16 @@ public class HelloController{
 	
 	
    @RequestMapping(value= "/hello", method = RequestMethod.GET)
-   public String printHello(@ModelAttribute("Employee") EmployeeLogin emp,
+   public String printHello(
 		   @ModelAttribute("contJTemp") JdbcTemplate jdbcTemplate,
 		   RedirectAttributes redirectAttributes,
 		   ModelMap model) {
+	   EmployeeLogin emp = (EmployeeLogin) model.get("employee");
+		 if(emp == null){
+			return "redirect:/";
+		 }
+	   
       model.addAttribute("message", "Welcome: " +  emp.getName() + " this is the current schedule.");
       return "hello";
-   }
-}
+   
+		}}
