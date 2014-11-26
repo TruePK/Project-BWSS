@@ -73,7 +73,13 @@ public class genrateSchedule {
 		
 		//Returns a list of the areas
 		String sqlForAreas = "select home from employee group by home;";	
-		List<String> listOfAreas = Arrays.asList("BAKE","CYM","ICP","KIT");
+		List<String> listOfAreas = new ArrayList<String>();
+			listOfAreas.add("BAKE");
+			listOfAreas.add("CYM");
+			listOfAreas.add("ICP");
+			listOfAreas.add("KIT");
+		
+		//Arrays.asList("BAKE","CYM","ICP","KIT");
 		
 		//Returns a list of employees
 		List<Integer> listOfEmployeesByArea = new LinkedList<Integer>();
@@ -97,16 +103,17 @@ public class genrateSchedule {
 			listOfEmployeesByArea = new LinkedList(findEmpByArea(listOfAreas.get(posArea)));
 			for(int posEmp = 0; posEmp < listOfEmployeesByArea.size(); posEmp++){
 				avalabiltyByEmployeeID.put(listOfEmployeesByArea.get(posEmp),
-				findAvalabiltyForEmployee(posEmp+1));	
+				findAvalabiltyForEmployee(listOfEmployeesByArea.get(posEmp)));	
 				//System.out.print("findAvalabilty \n");
 				//System.out.print(avalabiltyByEmployeeID.size()+ ": # of emp in area\n");
 				Map<Integer,List> pdfGrid = new HashMap<Integer,List>();
-			}		
+			}
+			System.out.print(avalabiltyByEmployeeID+"\n");
 			//System.out.print(generateWorkGridByArea(avalabiltyByEmployeeID,gateCounts,listOfAreas.get(posArea))+"\n");
 			if(listOfAreas.get(posArea).equals("BAKE"))bakeGenMap = generateWorkGridByArea(avalabiltyByEmployeeID,gateCounts,listOfAreas.get(posArea));
 			if(listOfAreas.get(posArea).equals("CYM"))cymGenMap = generateWorkGridByArea(avalabiltyByEmployeeID,gateCounts,listOfAreas.get(posArea));
 			if(listOfAreas.get(posArea).equals("ICP"))icpGenMap = generateWorkGridByArea(avalabiltyByEmployeeID,gateCounts,listOfAreas.get(posArea));
-			if(listOfAreas.get(posArea).equals("KIT"))kitGenMap = generateWorkGridByArea(avalabiltyByEmployeeID,gateCounts,listOfAreas.get(posArea));
+			if(listOfAreas.get(posArea).equals("KIT"))kitGenMap = generateWorkGridByArea(avalabiltyByEmployeeID,gateCounts,listOfAreas.get(posArea));System.out.print(avalabiltyByEmployeeID+"\n");
 			avalabiltyByEmployeeID.clear();
 			
 		}
@@ -471,6 +478,7 @@ public class genrateSchedule {
 				
 				for(int iter = 0; iter < arrayOfEmp.size(); iter++){
 					
+					
 					mapOfOffTime.put(arrayOfEmp.get(iter), 
 							new ArrayList<Integer>(Arrays.asList(daysOff.pop(),daysOff.pop())));
 				}
@@ -478,17 +486,16 @@ public class genrateSchedule {
 				
 				for(int iterate = 0; iterate<7;iterate++){
 					if(iterate!=1 && iterate!=5){						
-						if(iterate == 1 || iterate == 5)System.out.print(" Truck Day\n");
 
 						int randomEmp = (int)(Math.random() * arrayOfEmp.size());
-						
-						if(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate) == false){
+																											//change
+						if(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate) == false && avalabiltyByEmployeeID.get(mapOffID.get(randomEmp)).get(iterate).equals("Y") ){
 							List<String> temp = new LinkedList<String>();
 							temp=toReturn.get(mapOffID.get(randomEmp));
 							temp.set(iterate, "730");
 							toReturn.put(mapOffID.get(randomEmp), temp);
-						}else{
-							while(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate)){
+						}else{																		//change
+							while(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate)|| avalabiltyByEmployeeID.get(mapOffID.get(randomEmp)).get(iterate).equals("N")){
 								randomEmp = (int)(Math.random() * mapOffID.size());
 							}
 							List<String> temp = new LinkedList<String>();
@@ -497,7 +504,8 @@ public class genrateSchedule {
 							toReturn.put(mapOffID.get(randomEmp), temp);
 						}
 							for(int x = 0; x < mapOffID.size();x++){
-								if( mapOffID.get(x)!=(mapOffID.get(randomEmp)) && !mapOfOffTime.get(mapOffID.get(x)).contains(iterate)){
+								if( mapOffID.get(x)!=(mapOffID.get(randomEmp)) && !mapOfOffTime.get(mapOffID.get(x)).contains(iterate) && 
+										avalabiltyByEmployeeID.get(mapOffID.get(x)).get(iterate).equals("Y")){
 									List<String> temp = new LinkedList<String>();
 									temp=toReturn.get(mapOffID.get(x));
 									temp.set(iterate, "830");
@@ -506,13 +514,13 @@ public class genrateSchedule {
 							}//for
 					}else{
 						int randomEmp = (int)(Math.random() * mapOffID.size());
-						if(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate) == false){
+						if(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate) == false && avalabiltyByEmployeeID.get(mapOffID.get(randomEmp)).get(iterate).equals("Y")){
 							List<String> temp = new LinkedList<String>();
 							temp=toReturn.get(mapOffID.get(randomEmp));
 							temp.set(iterate, "630");
 							toReturn.put(mapOffID.get(randomEmp), temp);
 						}else{
-							while(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate)){
+							while(mapOfOffTime.get(mapOffID.get(randomEmp)).contains(iterate)|| avalabiltyByEmployeeID.get(mapOffID.get(randomEmp)).get(iterate).equals("N")){
 								randomEmp = (int)(Math.random() * mapOffID.size());
 							}
 							List<String> temp = new LinkedList<String>();
@@ -521,7 +529,8 @@ public class genrateSchedule {
 							toReturn.put(mapOffID.get(randomEmp), temp);
 						}
 							for(int x = 0; x < mapOffID.size();x++){
-								if(mapOffID.get(x)!=(mapOffID.get(randomEmp))  && !mapOfOffTime.get(mapOffID.get(x)).contains(iterate)){
+								if(mapOffID.get(x)!=(mapOffID.get(randomEmp))  && !mapOfOffTime.get(mapOffID.get(x)).contains(iterate)&& 
+										avalabiltyByEmployeeID.get(mapOffID.get(x)).get(iterate).equals("Y")){						
 									List<String> temp = new LinkedList<String>();
 									temp=toReturn.get(mapOffID.get(x));
 									temp.set(iterate, "830");
